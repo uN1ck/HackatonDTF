@@ -6,17 +6,45 @@ namespace core.table
 {
     public enum RowState
     {
-        SETTING, CONFIRM, RUN
+        SETTING,
+        CONFIRM,
+        RUN
     }
+
+    public delegate void OnMouseUpDelegate(RowController controller);
 
     public class RowController : MonoBehaviour
     {
-        private GameObject TopCard { set; get; }
-        private GameObject BottomCard { set; get; }
+        private Vector3 position;
+
+        public GameObject TopCard
+        {
+            set
+            {
+                TopCard = value;
+                TopCard.transform.localPosition = new Vector3(position.x, 3, position.y);
+            }
+            get => TopCard;
+        }
+
+        public GameObject BottomCard { set
+            {
+                BottomCard = value;
+                BottomCard.transform.localPosition = new Vector3(position.x, 3, position.y);
+            }
+            get => BottomCard; }
+        
         public RowState RowState { set; get; }
 
+        public OnMouseUpDelegate OnMouseUpDelegate { set; get; }
 
-        public void Update()
+
+        private void Start()
+        {
+            position = transform.position;
+        }
+
+        private void Update()
         {
             switch (RowState)
             {
@@ -31,6 +59,11 @@ namespace core.table
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void OnMouseUpAsButton()
+        {
+            OnMouseUpDelegate.Invoke(this);
         }
 
         //
@@ -49,19 +82,16 @@ namespace core.table
             {
                 //TODO: PlayerWins
                 BottomCard.transform.localPosition += Vector3.up;
-            }else if (result == 0)
+            }
+            else if (result == 0)
             {
                 //TODO: NobodyWins
-                
-            }else
-            if (result < 0)
+            }
+            else if (result < 0)
             {
                 //TODO: OpponentWins
                 TopCard.transform.localPosition += Vector3.down;
             }
-            
-
-
         }
 
         private void handleSetting()
@@ -81,7 +111,6 @@ namespace core.table
 
         private void handleInvalidNextState(String message)
         {
-            
         }
 
         //

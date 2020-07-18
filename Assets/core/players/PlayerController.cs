@@ -16,5 +16,4 @@ public class PlayerController : MonoBehaviour
         
     }
     
-    private void onClick
 }
