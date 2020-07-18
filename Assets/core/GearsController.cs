@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -6,26 +7,35 @@ using UnityEngine;
 public class GearsController : MonoBehaviour
 {
     private List<CommonGear> _gears = new List<CommonGear>();
+    private List<Pair<CommonGear, CommonGear>> chains = new List<Pair<CommonGear, CommonGear>>();
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/CommonGear.prefab", typeof(GameObject));
-        
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
-            var newGear = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform) as GameObject;
-            if (newGear != null)
-            {
-                newGear.transform.position += Vector3.one * i;
-                CommonGear gear = newGear.GetComponent<CommonGear>();
-                _gears.Add(gear);
-            }
+            var gear = CommonGear.Instantiate(transform, handleCollide);
+            gear.transform.position = Vector3.one * (0.5f * i);
+            _gears.Add(gear.GetComponent<CommonGear>());
         }
     }
+
+
+    void handleCollide(Collision2D collision, CommonGear source)
+    {
+        Debug.Log("Collision done!");
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        
     }
+}
+
+internal class Pair<L, R>
+{
+    public L left { set; get; }
+
+    public R right { set; get; }
 }

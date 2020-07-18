@@ -6,11 +6,11 @@ using UnityEngine;
 
 public sealed class CommonGear : MonoBehaviour
 {
-    private Transform _transform;
-    private GearsController _gearsController;
-    private Action<Collision> _gearCollideHandler;
+    private Action<Collision2D, CommonGear> _gearCollideHandler;
+    public Double AngleSpeed { set; get; } = 1.0;
 
-    public static GameObject Instantiate(Transform parent, Action<Collision> gearCollideHandler)
+    //TODO: Move to factory
+    public static GameObject Instantiate(Transform parent, Action<Collision2D, CommonGear> gearCollideHandler)
     {
         var prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/CommonGear.prefab", typeof(GameObject));
         var newGear = Instantiate(prefab, Vector3.zero, Quaternion.identity, parent) as GameObject;
@@ -22,8 +22,6 @@ public sealed class CommonGear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _transform = gameObject.transform;
-        _gearsController = _transform.GetComponentInParent<GearsController>();
     }
 
     // Update is called once per frame
@@ -31,9 +29,14 @@ public sealed class CommonGear : MonoBehaviour
     {
         
     }
+    
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        _gearCollideHandler.Invoke(other);
+        foreach (ContactPoint2D contact in other.contacts)
+        {
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
+        _gearCollideHandler.Invoke(other, this);
     }
 }
