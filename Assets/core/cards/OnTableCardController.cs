@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using core.cards;
-using UnityEngine;
-
-
+﻿using core.cards;
 
 public class OnTableCardController : CardController
 {
     
     void Start()
     {
-        // Color
-        // GetComponent<MeshRenderer>().material.color = this.CardType;
+
     }
     
     void Update()
@@ -22,6 +15,6 @@ public class OnTableCardController : CardController
 
     private void OnMouseUp()
     {
-        onMouseDelegate.Invoke(this);
+        onMouseDelegate.Invoke(this.CardType);
     }
 }

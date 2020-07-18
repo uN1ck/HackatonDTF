@@ -16,24 +16,31 @@ namespace core.table
     public class RowController : MonoBehaviour
     {
         private Vector3 position;
+Eitk cgfnm
+        private GameObject _topCard;
 
         public GameObject TopCard
         {
             set
             {
-                TopCard = value;
-                TopCard.transform.localPosition = new Vector3(position.x, 3, position.y);
+                _topCard = value;
+                _topCard.transform.localPosition = new Vector3(position.x, 3, position.y);
             }
-            get => TopCard;
+            get => _topCard;
         }
 
-        public GameObject BottomCard { set
+        private GameObject _bottomCard;
+
+        public GameObject BottomCard
+        {
+            set
             {
-                BottomCard = value;
-                BottomCard.transform.localPosition = new Vector3(position.x, 3, position.y);
+                _bottomCard = value;
+                _bottomCard.transform.localPosition = new Vector3(position.x, 3, position.y);
             }
-            get => BottomCard; }
-        
+            get => _bottomCard;
+        }
+
         public RowState RowState { set; get; }
 
         public OnMouseUpDelegate OnMouseUpDelegate { set; get; }

@@ -7,21 +7,11 @@ using Random = UnityEngine.Random;
 
 namespace core
 {
-    public class DummyEnemy : MonoBehaviour, Player
+    public class DummyEnemy : MonoBehaviour, IPlayer
     {
         public List<RowController> rows { set; get; }
         private GameObject selectedCardTemplate;
-        private readonly Random _randomCardGenerator = new Random();
 
-        public void makeStep()
-        {
-            foreach (RowController row in rows)
-            {
-                row.TopCard = generateCard();
-            }
-        }
-
-        //TODO: Hide behind interface
         private GameObject generateCard()
         {
             GameObject newCard = Instantiate(

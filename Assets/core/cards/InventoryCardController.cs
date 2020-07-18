@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace core.cards
 {
-    public class InventoryCardController : MonoBehaviour
+    public class InventoryCardController : CardController
     {
         public CardType cardType;
 

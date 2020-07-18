@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace core
 {
-    public interface Player
+    public interface IPlayer
     {
         void setActiveCardTemplate(GameObject cardTemplate);
 

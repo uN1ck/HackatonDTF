@@ -1,13 +1,14 @@
+using core.ui;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace core.cards
 {
-    public delegate void OnMouseUpDelegate(OnTableCardController controller);
-
+    
     public abstract class CardController : MonoBehaviour
     {
         public CardType CardType { set; get; }
-        public OnMouseUpDelegate onMouseDelegate;
+        public OnCardSelect onMouseDelegate;
 
         private static readonly int[,] PlayingTable = new int[5, 5]
         {
@@ -21,6 +22,16 @@ namespace core.cards
         public int wins(CardController opponent)
         {
             return PlayingTable[(int) CardType, (int) opponent.CardType];
+        }
+
+        private void Start()
+        {
+            GetComponent<Button>().onClick.AddListener(handleButtonClick);
+        }
+
+        private void handleButtonClick()
+        {
+            onMouseDelegate.Invoke(CardType);
         }
     }
 }
