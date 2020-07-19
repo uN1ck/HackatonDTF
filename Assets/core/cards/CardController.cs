@@ -1,10 +1,8 @@
 using core.ui;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace core.cards
 {
-    
     public abstract class CardController : MonoBehaviour
     {
         public CardType CardType { set; get; }
@@ -22,16 +20,6 @@ namespace core.cards
         public int wins(CardController opponent)
         {
             return PlayingTable[(int) CardType, (int) opponent.CardType];
-        }
-
-        private void Start()
-        {
-            GetComponent<Button>().onClick.AddListener(handleButtonClick);
-        }
-
-        private void handleButtonClick()
-        {
-            onMouseDelegate.Invoke(CardType);
         }
     }
 }

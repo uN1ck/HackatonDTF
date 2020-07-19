@@ -16,7 +16,7 @@ namespace core.table
     public class RowController : MonoBehaviour
     {
         private Vector3 position;
-Eitk cgfnm
+
         private GameObject _topCard;
 
         public GameObject TopCard

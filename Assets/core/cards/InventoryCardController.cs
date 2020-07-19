@@ -1,15 +1,22 @@
-using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace core.cards
 {
     public class InventoryCardController : CardController
     {
         public CardType cardType;
-
-        private void OnMouseUp()
+        private ICardTemplateFactory CardFactory;
+        
+        private void Start()
         {
-            throw new NotImplementedException();
+            CardFactory = GetComponent<OnTableCardFactory>();
+            GetComponent<Button>().onClick.AddListener(onClick);
+        }
+
+        private void onClick()
+        {
+            GameObject newCard = CardFactory.createTableCardFor(cardType);
         }
     }
 }

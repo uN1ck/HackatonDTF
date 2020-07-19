@@ -18,20 +18,19 @@ namespace core.table
 
         private void Start()
         {
-            initializePlayers();
             initializeRows();
         }
         
-        private void initializePlayers()
-        {
-            GameObject player1 = Instantiate(playerTemplate, Vector3.zero, Quaternion.identity, transform);
-            player1.AddComponent<PlayerController>();
-            _players.Add(player1);
-            
-            GameObject player2 = Instantiate(playerTemplate, Vector3.zero, Quaternion.identity, transform);
-            player2.AddComponent<DummyEnemy>();
-            _players.Add(player2);
-        }
+        // private void initializePlayers()
+        // {
+        //     GameObject player1 = Instantiate(playerTemplate, Vector3.zero, Quaternion.identity, transform);
+        //     player1.AddComponent<RealPlayer>();
+        //     _players.Add(player1);
+        //     
+        //     GameObject player2 = Instantiate(playerTemplate, Vector3.zero, Quaternion.identity, transform);
+        //     player2.AddComponent<DummyAiPlayer>();
+        //     _players.Add(player2);
+        // }
 
         private void initializeRows()
         {
@@ -44,7 +43,7 @@ namespace core.table
                 GameObject newRow = Instantiate(rowTemplate, Vector3.zero, Quaternion.identity, transform);
 
                 newRow.transform.localScale = new Vector3(0.1f, 0.6f, 1);
-                newRow.transform.localPosition = new Vector3(currentX, 0.1f, -1);
+                newRow.transform.localPosition = new Vector3(currentX, 0.05f, -1);
                 newRow.GetComponent<RowController>().RowState = RowState.SETTING;
                 newRow.GetComponent<RowController>().OnMouseUpDelegate = onClickRow;
 
@@ -57,12 +56,9 @@ namespace core.table
             _selectedRow = row;
             if (_currentPlayer != null)
             {
-                row.BottomCard = _currentPlayer.getActiveCardTemplate();
+                //TODO: 
+                // row.BottomCard = _currentPlayer.ActiveCardType();
             }
-        }
-
-        private void Update()
-        {
         }
     }
 }

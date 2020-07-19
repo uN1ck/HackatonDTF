@@ -5,5 +5,7 @@ namespace core
         void restartGame();
 
         void endTurn();
+        
+        IPlayer getCurrentPlayer();
     }
 }

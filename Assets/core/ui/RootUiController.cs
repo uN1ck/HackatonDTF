@@ -1,44 +1,40 @@
 using core.cards;
 using core.scenes;
+using core.utils;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace core.ui
 {
-    public class RootUiController : MonoBehaviour
+    //Граница между UI и самой игрой
+    public class RootUiController : InjectableMonoBehaviour
     {
+        [UnityInject("ExitButton")]
         private Button ExitButton;
+        [UnityInject("RestartButton")]
         private Button RestartButton;
+        [UnityInject("EndTurnButton")]
         private Button EndTurnButton;
+        [UnityInject("CardButtonController")]
         private CardPanelController CardButtonController;
-        
+
         private IScenesManager IScenesManager;
-        
+
         private IGameManager IGameManager;
-
-        private void inject()
-        {
-            ExitButton = GameObject.FindGameObjectWithTag("ExitButton")?.GetComponent<Button>();
-            RestartButton = GameObject.FindGameObjectWithTag("RestartButton")?.GetComponent<Button>();
-            EndTurnButton = GameObject.FindGameObjectWithTag("EndTurnButton")?.GetComponent<Button>();
-            CardButtonController = GameObject.FindGameObjectWithTag("CardButtonsRow")?.GetComponent<CardPanelController>();
-        }
         
 
-        private void Start()
+        public override void PostStart()
         {
-            inject();
-            
             ExitButton.onClick.AddListener(handleExitButton);
             RestartButton.onClick.AddListener(handleRestartButton);
             EndTurnButton.onClick.AddListener(handleEndTurnButton);
-            
+
             CardButtonController.OnCardSelect = handleCardSelect;
         }
 
         private void handleExitButton()
         {
-            IScenesManager.loadScene("ExitScene");
+            IScenesManager.loadScene("MainMenuScene");
         }
 
         private void handleRestartButton()
@@ -53,7 +49,7 @@ namespace core.ui
 
         private void handleCardSelect(CardType cardType)
         {
-            //TODO: Selected card instanciate
+            IGameManager.getCurrentPlayer().ActiveCardType = cardType;
         }
     }
 }
