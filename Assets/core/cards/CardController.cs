@@ -6,7 +6,7 @@ namespace core.cards
     public abstract class CardController : MonoBehaviour
     {
         public CardType CardType { set; get; }
-        public OnCardSelect onMouseDelegate;
+        //public OnCardSelect onMouseDelegate;
 
         private static readonly int[,] PlayingTable = new int[5, 5]
         {
